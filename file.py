@@ -13,4 +13,64 @@ def setup_logger():
         format='%(asctime)s - %(levelname)s - %(message)s',
         level=logging.INFO
     )
+# text_statistics.py
+import re
+import string
+from collections import Counter
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud
+
+class TextStats:
+    def _init_(self, text):
+        self.text = text
+        self.words = []
+        self.sentences = []
+        self.paragraphs = []
+
+    def tokenize_words(self):
+        self.words = self.text.split()
+        return self.words
+
+    def tokenize_sentences(self):
+        self.sentences = re.split(r'[.!?]', self.text)
+        self.sentences = [s.strip() for s in self.sentences if s.strip()]
+        return self.sentences
+
+    def tokenize_paragraphs(self):
+        self.paragraphs = self.text.split('\n\n')
+        return self.paragraphs
+
+    def word_count(self):
+        return len(self.words)
+ def sentence_count(self):
+        return len(self.sentences)
+
+    def paragraph_count(self):
+        return len(self.paragraphs)
+
+    def word_frequencies(self):
+        clean_words = [word.strip(string.punctuation).lower() for word in self.words if word]
+        return Counter(clean_words)
+
+    def most_common_words(self, n=10):
+        return self.word_frequencies().most_common(n)
+
+    def generate_wordcloud(self, output_file='wordcloud.png'):
+        word_freq = self.word_frequencies()
+        wc = WordCloud(width=800, height=400, background_color='white').generate_from_frequencies(word_freq)
+        plt.figure(figsize=(10, 5))
+        plt.imshow(wc, interpolation='bilinear')
+        plt.axis('off')
+        plt.savefig(output_file)
+        print(f"Wordcloud saved as {output_file}")
+def export_report(self, filename='text_report.txt'):
+        with open(filename, 'w') as f:
+            f.write("=== Text Analysis Report ===\n")
+            f.write(f"Total Words: {self.word_count()}\n")
+            f.write(f"Total Sentences: {self.sentence_count()}\n")
+            f.write(f"Total Paragraphs: {self.paragraph_count()}\n")
+            f.write("\n--- Most Common Words ---\n")
+            for word, freq in self.most_common_words(20):
+                f.write(f"{word}: {freq}\n")
+        print(f"Report exported to {filename}")
 
