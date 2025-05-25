@@ -5,6 +5,10 @@ import langdetect
 import logging
 from datetime import datetime
 
+
+
+
+
 # Setup logging
 def setup_logger():
     logging.basicConfig(
@@ -15,6 +19,9 @@ def setup_logger():
         level=logging.INFO
     )
 
+
+
+
 setup_logger()
 
 class TextLoader:
@@ -23,11 +30,18 @@ class TextLoader:
         self.raw_text = ""
         self.cleaned_text = ""
 
+
+
+    
     def file_exists(self):
         exists = os.path.exists(self.file_path)
         logging.info(f"File exists check for {self.file_path}: {exists}")
         return exists
 
+
+
+
+    
     def read_file(self):
         if not self.file_exists():
             logging.error(f"File {self.file_path} not found.")
@@ -36,6 +50,8 @@ class TextLoader:
             self.raw_text = f.read()
         logging.info("File read successfully.")
 
+
+    
     def clean_text(self):
         if not self.raw_text:
             logging.warning("No raw text to clean.")
@@ -49,6 +65,8 @@ class TextLoader:
         logging.info("Text cleaned.")
         return text
 
+
+    
     def detect_language(self):
         try:
             lang = langdetect.detect(self.cleaned_text)
@@ -75,6 +93,9 @@ def get_stats(self):
         }
 
 
+
+
+
 def create_sample_file(path):
     sample_text = """Hello! This is a sample document.
 It contains multiple lines, punctuation marks, and mixed-case letters.
@@ -83,6 +104,9 @@ We're testing how the Text Analyzer processes this input."""
         f.write(sample_text)
     logging.info("Sample file created.")
 
+
+
+
 def menu():
     print("\n=== Text Input Module ===")
     print("1. Load and clean text")
@@ -90,6 +114,8 @@ def menu():
     print("3. Show stats")
 print("4. Save cleaned text")
     print("5. Exit")
+
+
 
 def main():
     path = "sample.txt"
@@ -123,12 +149,21 @@ def main():
     if _name_ == "_main_":
     main()
 
+
+
+
+
+
+
 # text_statistics.py
 import re
 import string
 from collections import Counter
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
+
+
+
 
 class TextStats:
     def _init_(self, text):
@@ -184,6 +219,9 @@ def export_report(self, filename='text_report.txt'):
                 f.write(f"{word}: {freq}\n")
         print(f"Report exported to {filename}")
 
+
+
+
 def demo_statistics():
     from text_input import TextLoader
     loader = TextLoader("sample.txt")
@@ -191,11 +229,16 @@ def demo_statistics():
     loader.clean_text()
 
 
+
+    
+
     ts = TextStats(loader.cleaned_text)
     ts.tokenize_words()
     ts.tokenize_sentences()
     ts.tokenize_paragraphs()
 
+
+    
     print("Words:", ts.word_count())
     print("Sentences:", ts.sentence_count())
     print("Paragraphs:", ts.paragraph_count())
