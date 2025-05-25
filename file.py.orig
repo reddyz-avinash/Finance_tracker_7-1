@@ -13,7 +13,7 @@ def setup_logger():
         format='%(asctime)s - %(levelname)s - %(message)s',
         level=logging.INFO
     )
-
+<<<<<<< HEAD
 # text_statistics.py
 import re
 import string
@@ -74,13 +74,13 @@ def export_report(self, filename='text_report.txt'):
             for word, freq in self.most_common_words(20):
                 f.write(f"{word}: {freq}\n")
         print(f"Report exported to {filename}")
-
+=======
 def demo_statistics():
     from text_input import TextLoader
     loader = TextLoader("sample.txt")
     loader.read_file()
     loader.clean_text()
-
+>>>>>>> D
 
     ts = TextStats(loader.cleaned_text)
     ts.tokenize_words()
